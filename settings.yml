@@ -41,3 +41,5 @@ top_bar_height:
   default: 150
 top_bar_sticky_top_position:
   default: 60
+sidebar_gap:
+  default: 5

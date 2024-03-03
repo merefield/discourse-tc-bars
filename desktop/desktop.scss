@@ -2,6 +2,7 @@
   box-sizing: unset;
   width: 100%;
   display: grid;
+  grid-column-gap: #{$sidebar_gap}px;
   grid-template-areas:
     "sidebar leftsidebar content rightsidebar";
   grid-template-columns: 0 auto minmax(0, 1fr) auto;
@@ -19,6 +20,7 @@ body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas:
     "leftsidebar sidebar content rightsidebar";
   grid-template-columns: auto var(--d-sidebar-width) minmax(0, 1fr) auto;
+  grid-column-gap: #{$sidebar_gap}px;
 }
 
 .full-width:not(.admin-interface *) {
@@ -26,6 +28,7 @@ body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas:
     "content rightaltsidebar";
   grid-template-columns: minmax(0, 1fr) auto;
+  grid-column-gap: #{$sidebar_gap}px;
 }
 
 .right-alt-sidebar {
