@@ -48,22 +48,10 @@ body.has-sidebar-page #main-outlet-wrapper {
 }
 
 .left-sidebar, .right-sidebar, .right-alt-sidebar {
-  position: sticky;
-  position: -webkit-sticky;
-}
-
-.left-sidebar, .right-sidebar, .right-alt-sidebar {
   top: #{$sidebar_sticky_top_position}px;
-  height: 100%;
+  height: #{$sidebar_height}px;
+  align-self: start;
 }
-
-// .left-sidebar {
-//   width: #{$left_sidebar_width}px;
-// }
-
-// .right-sidebar, .right-alt-sidebar {
-//   width: #{$right_sidebar_width}px;
-// }
 
 .big-a, .big-b, .big-c, .big-d, .big-e, .big-f, .big-g {
   font-weight: bold;

@@ -21,7 +21,7 @@ export default class ComponentBarComponent extends Component {
     if (this.barEnabled) {
       switch (this.args.location) {
         case 'top':
-          return htmlSafe('width: 100%');
+          return htmlSafe('width: 100%;');
         case 'right':
           return htmlSafe(`width: ${parseInt(settings.right_sidebar_width)}px;`);
         case 'right-alt':
@@ -29,10 +29,26 @@ export default class ComponentBarComponent extends Component {
         case 'left':
           return htmlSafe(`width: ${parseInt(settings.left_sidebar_width)}px;`);
         default:
-          return htmlSafe('width: 0px');
+          return htmlSafe('width: 0px;');
       }
     } else {
-      return htmlSafe('width: 0px');
+      return htmlSafe('width: 0px;');
+    }
+  }
+
+  get getSticky(){
+    if (settings.sticky_sidebars) {
+      return htmlSafe(' position: sticky; position: -webkit-sticky;');
+    } else {
+      return htmlSafe('');
+    }
+  }
+
+  get getScrolly(){
+    if (settings.scrolly_sidebars) {
+      return htmlSafe('  overflow-y: scroll;');
+    } else {
+      return htmlSafe('');
     }
   }
 

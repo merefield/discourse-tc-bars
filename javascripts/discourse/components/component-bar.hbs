@@ -1,4 +1,4 @@
-<div class="{{this.currentBarClasses}}" style="{{currentBarWidth}}">
+<div class="{{this.currentBarClasses}}" style="{{this.currentBarWidth}}{{this.getSticky}}{{this.getScrolly}}">
   {{#each this.inScopeComponents as |inScopeComponent|}}
       <div class="component-widget">
         {{component inScopeComponent.component_name}}

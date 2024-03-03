@@ -35,8 +35,14 @@ left_sidebar_width:
   default: 300
 right_sidebar_width:
   default: 300
+sticky_sidebars:
+  default: true
 sidebar_sticky_top_position:
   default: 60
+sidebar_height:
+  default: 800
+scrolly_sidebars:
+  default: false
 top_bar_height:
   default: 150
 top_bar_sticky_top_position:
