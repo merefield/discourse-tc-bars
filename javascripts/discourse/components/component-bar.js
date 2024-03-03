@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from "@ember/service";
+import { htmlSafe } from "@ember/template";
 
 export default class ComponentBarComponent extends Component {
   @service router;
@@ -20,18 +21,18 @@ export default class ComponentBarComponent extends Component {
     if (this.barEnabled) {
       switch (this.args.location) {
         case 'top':
-          return 'width: 100%';
+          return htmlSafe('width: 100%');
         case 'right':
-          return `width: ${settings.right_sidebar_width}px;`;
+          return htmlSafe(`width: ${parseInt(settings.right_sidebar_width)}px;`);
         case 'right-alt':
-          return `width: ${settings.right_sidebar_width}px;`;
+          return htmlSafe(`width: ${parseInt(settings.right_sidebar_width)}px;`);
         case 'left':
-          return `width: ${settings.left_sidebar_width}px;`;
+          return htmlSafe(`width: ${parseInt(settings.left_sidebar_width)}px;`);
         default:
-          return 'width: 0px';
+          return htmlSafe('width: 0px');
       }
     } else {
-      return 'width: 0px';
+      return htmlSafe('width: 0px');
     }
   }
 
