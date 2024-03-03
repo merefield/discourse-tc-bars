@@ -1,0 +1,45 @@
+bar_components:
+  default: >-
+    [{"component_name":"big-a","route":"discovery","position":"left"},
+     {"component_name":"big-b","route":"discovery","position":"left"},
+     {"component_name":"big-c","route":"discovery","position":"right-alt"},
+     {"component_name":"big-d","route":"discovery","position":"right-alt"},
+     {"component_name":"big-e","route":"discovery","position":"top"},
+     {"component_name":"big-f","route":"discovery","position":"top"},
+     {"component_name":"big-c","route":"topic","position":"right"},
+     {"component_name":"big-d","route":"topic","position":"right"},
+     {"component_name":"big-e","route":"topic","position":"top"},
+     {"component_name":"big-a","route":"categories","position":"left"},
+     {"component_name":"big-c","route":"category","position":"left"},
+     {"component_name":"big-b","route":"tag","position":"right"}]
+  json_schema: >-
+    {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "component_name": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string",
+            "enum": ["discovery", "topic", "categories", "category", "tag"]
+          },
+          "position": {
+            "type": "string",
+            "enum": ["left", "right", "right-alt", "top"]
+          },
+        }
+      }
+    }
+  description: "Specify Component, route and position.  Order determines layout. <br/><br/>Examples of route: discovery.latest, discovery.unread, discovery.new, discovery.top, tag.show, \"c/category-slug\" (for categories), \"tag/sample-tag\" (for tags). <br/><br/>When empty, the sidebar is shown on all list routes."
+left_sidebar_width:
+  default: 300
+right_sidebar_width:
+  default: 300
+sidebar_sticky_top_position:
+  default: 60
+top_bar_height:
+  default: 150
+top_bar_sticky_top_position:
+  default: 60

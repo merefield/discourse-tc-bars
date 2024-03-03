@@ -1,0 +1,9 @@
+<div class="{{this.currentBarClasses}}" style="{{currentBarWidth}}">
+  {{#each this.inScopeComponents as |inScopeComponent|}}
+    {{#if this.isVisible}}
+      <div class="component-widget">
+        {{component inScopeComponent.component_name}}
+      </div>
+    {{/if}}
+  {{/each}}
+</div>
