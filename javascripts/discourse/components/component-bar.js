@@ -1,43 +1,9 @@
 import Component from '@glimmer/component';
 import { inject as service } from "@ember/service";
-import { action } from '@ember/object';
-import { tracked } from "@glimmer/tracking";
 
 export default class ComponentBarComponent extends Component {
   @service router;
   @service site;
-  @tracked isVisible = true;
-
-  // constructor() {
-  //   super(...arguments);
-  //   this.router.on('routeWillChange', this.handleRouteWillChange);
-  //   this.router.on('routeDidChange', this.handleRouteDidChange);
-  // }
-
-  // willDestroy() {
-  //   super.willDestroy();
-  //   // Cleanup: Remove event listeners
-  //   this.router.off('routeWillChange', this.handleRouteWillChange);
-  //   this.router.off('routeDidChange', this.handleRouteDidChange);
-  // }
-
-  // @action
-  // handleRouteWillChange(transition) {
-  //   if (!transition.to || !transition.from) {
-  //     return;
-  //   }
-  //   // Example condition to hide the component
-  //   if (transition.to.name !== transition.from.name) {
-  //     setTimeout(() => {
-  //       this.isVisible = false;
-  //     }, 1000); // 1000 milliseconds = 1 second
-  //   }
-  // }
-
-  // @action
-  // handleRouteDidChange() {
-  //   this.isVisible = true;
-  // }
 
   get currentBarClasses() {
     switch (this.args.location) {
@@ -48,19 +14,6 @@ export default class ComponentBarComponent extends Component {
       default:
         return `${this.args.location}-sidebar`;
     }
-  }
-
-  routeCondition(componentRoute) {
-    let [baseRoute, subRoute] = this.router.currentRouteName.split('.');
-    let isBaseRouteMatch = componentRoute === baseRoute;
-    let isSubRouteCategories = subRoute === 'categories';
-    let isSubRouteCategory = subRoute === 'category';
-    let forbiddenSubRoutes = ['categories', 'category'];
-
-    let routeCondition = (isBaseRouteMatch && !forbiddenSubRoutes.includes(subRoute)) ||
-                (componentRoute === 'categories' && isSubRouteCategories) ||
-                (componentRoute === 'category' && isSubRouteCategory);
-    return routeCondition;
   }
 
   get currentBarWidth() {
@@ -80,6 +33,19 @@ export default class ComponentBarComponent extends Component {
     } else {
       return 'width: 0px';
     }
+  }
+
+  routeCondition(componentRoute) {
+    let [baseRoute, subRoute] = this.router.currentRouteName.split('.');
+    let isBaseRouteMatch = componentRoute === baseRoute;
+    let isSubRouteCategories = subRoute === 'categories';
+    let isSubRouteCategory = subRoute === 'category';
+    let forbiddenSubRoutes = ['categories', 'category'];
+
+    let routeCondition = (isBaseRouteMatch && !forbiddenSubRoutes.includes(subRoute)) ||
+                (componentRoute === 'categories' && isSubRouteCategories) ||
+                (componentRoute === 'category' && isSubRouteCategory);
+    return routeCondition;
   }
 
   get barEnabled() {
