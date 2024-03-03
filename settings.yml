@@ -22,17 +22,15 @@ bar_components:
             "type": "string"
           },
           "route": {
-            "type": "string",
-            "enum": ["discovery", "topic", "categories", "category", "tag"]
+            "type": "string"
           },
           "position": {
-            "type": "string",
-            "enum": ["left", "right", "right-alt", "top"]
-          },
+            "type": "string"
+          }
         }
       }
     }
-  description: "Specify Component, route and position.  Order determines layout. <br/><br/>Examples of route: discovery.latest, discovery.unread, discovery.new, discovery.top, tag.show, \"c/category-slug\" (for categories), \"tag/sample-tag\" (for tags). <br/><br/>When empty, the sidebar is shown on all list routes."
+  description: "Specify Component, Route and Position.  Order determines layout. <br/><br/>Route must be either: discovery, topic, tag, category OR categories.  <br/><br/>Position must be either: top, left, right OR right-alt."
 left_sidebar_width:
   default: 300
 right_sidebar_width:
