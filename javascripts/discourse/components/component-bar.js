@@ -29,15 +29,15 @@ export default class ComponentBarComponent extends Component {
         case 'left':
           return htmlSafe(`width: ${parseInt(settings.left_sidebar_width)}px;`);
         default:
-          return htmlSafe('width: 0px;');
+          return htmlSafe('display: none;');
       }
     } else {
-      return htmlSafe('width: 0px;');
+      return htmlSafe('display: none;');
     }
   }
 
   get getSticky(){
-    if (settings.sticky_sidebars) {
+    if (this.barEnabled && settings.sticky_sidebars) {
       return htmlSafe(' position: sticky; position: -webkit-sticky;');
     } else {
       return htmlSafe('');
@@ -45,7 +45,7 @@ export default class ComponentBarComponent extends Component {
   }
 
   get getScrolly(){
-    if (settings.scrolly_sidebars) {
+    if (this.barEnabled && settings.scrolly_sidebars) {
       return htmlSafe('  overflow-y: scroll;');
     } else {
       return htmlSafe('');
