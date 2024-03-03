@@ -15,10 +15,21 @@
   grid-area: rightsidebar;
 }
 
+body.has-sidebar-page #main-outlet-wrapper {
+  grid-template-areas:
+    "sidebar leftsidebar content rightsidebar";
+  grid-template-columns: var(--d-sidebar-width) auto minmax(0, 1fr) auto;
+}
 
 .full-width:not(.admin-interface *) {
-  display: flex;
-  flex-direction: row-reverse;
+  display: grid;
+  grid-template-areas:
+    "content rightaltsidebar";
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.right-alt-sidebar {
+  grid-area: rightaltsidebar;
 }
 
 .top-bar {
