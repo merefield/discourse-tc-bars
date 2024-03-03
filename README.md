@@ -1,4 +1,4 @@
-# discourse-tc-bars
+# discourse-tc-bars :beers: :cocktail: 
 A Theme Component that allows you to lay out Components ("widgets") on top and side bars
 
 * Discourse "widgets" have been deprecated, so this TC only supports Components (in any case Glimmer Components are fast and much more pleasant to develop)
