@@ -17,8 +17,8 @@
 
 body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas:
-    "sidebar leftsidebar content rightsidebar";
-  grid-template-columns: var(--d-sidebar-width) auto minmax(0, 1fr) auto;
+    "leftsidebar sidebar content rightsidebar";
+  grid-template-columns: auto var(--d-sidebar-width) minmax(0, 1fr) auto;
 }
 
 .full-width:not(.admin-interface *) {
