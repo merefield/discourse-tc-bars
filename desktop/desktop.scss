@@ -8,6 +8,14 @@
   grid-template-columns: 0 auto minmax(0, 1fr) auto;
 }
 
+@media screen and (max-width: 8000px) {
+  .container.posts .topic-navigation {
+      grid-area: posts;
+      grid-row: 2;
+      width: auto;
+  }
+}
+
 .left-sidebar {
   grid-area: leftsidebar;
 }
