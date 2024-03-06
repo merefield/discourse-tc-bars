@@ -51,3 +51,5 @@ sidebar_gap:
   default: 5
 rightalt_sidebar_gap:
   default: 5
+sidebar_between_component_gap:
+  default: 20

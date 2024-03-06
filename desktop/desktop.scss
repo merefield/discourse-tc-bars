@@ -59,6 +59,9 @@ body.has-sidebar-page #main-outlet-wrapper {
   top: #{$sidebar_sticky_top_position}px;
   height: #{$sidebar_height}px;
   align-self: start;
+  .component-widget{
+    margin-bottom: #{$sidebar_between_component_gap}px;
+  }
 }
 
 .big-a, .big-b, .big-c, .big-d, .big-e, .big-f, .big-g {
