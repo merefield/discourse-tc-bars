@@ -36,7 +36,7 @@ body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas:
     "content rightaltsidebar";
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-column-gap: #{$sidebar_gap}px;
+  grid-column-gap: #{$rightalt_sidebar_gap}px;
 }
 
 .right-alt-sidebar {

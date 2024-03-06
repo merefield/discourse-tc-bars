@@ -49,3 +49,5 @@ top_bar_sticky_top_position:
   default: 60
 sidebar_gap:
   default: 5
+rightalt_sidebar_gap:
+  default: 5
