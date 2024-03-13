@@ -1,10 +1,14 @@
 import Component from '@glimmer/component';
 import { inject as service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
+import { tracked } from "@glimmer/tracking";
+import { action } from '@ember/object';
 
 export default class ComponentBarComponent extends Component {
   @service router;
   @service site;
+  @tracked toggleState = "expanded";
+  @tracked visability = "show";
 
   get currentBarClasses() {
     switch (this.args.location) {
@@ -18,7 +22,7 @@ export default class ComponentBarComponent extends Component {
   }
 
   get currentBarWidth() {
-    if (this.barEnabled) {
+    if (this.barEnabled && this.toggleState === "expanded") {
       switch (this.args.location) {
         case 'top':
           return htmlSafe('width: 100%;');
@@ -31,6 +35,8 @@ export default class ComponentBarComponent extends Component {
         default:
           return htmlSafe('display: none;');
       }
+    } else if (this.barEnabled && this.toggleState === "collapsed") {
+      return htmlSafe('width: auto;');
     } else {
       return htmlSafe('display: none;');
     }
@@ -71,5 +77,25 @@ export default class ComponentBarComponent extends Component {
 
   get inScopeComponents() {
     return JSON.parse(settings.bar_components).filter(component => component.position === this.args.location && this.routeCondition(component.route));
+  }
+
+  get toggleIcon() {
+    return this.toggleState === "expanded" ?  (["right", "right-alt", "left"].includes(this.args.location) ? "angle-left" : "angle-up") : (["right", "right-alt", "left"].includes(this.args.location) ? "angle-right" : "angle-down") 
+  }
+
+  @action
+  dismiss() {
+    if (this.visability === "show") {
+      this.visability = "hide";
+    }
+  }
+
+  @action
+  toggleTheState() {
+    if (this.toggleState === "expanded") {
+      this.toggleState = "collapsed";
+    } else {
+      this.toggleState = "expanded";
+    }
   }
 }

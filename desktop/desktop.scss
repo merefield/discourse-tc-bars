@@ -45,13 +45,36 @@ body.has-sidebar-page #main-outlet-wrapper {
 
 .top-bar {
   display: flex;
-  flex-direction: row;
-  top: 60px;
-  top: #{$top_bar_sticky_top_position}px;
-  height: 100%;
-  position: sticky;
-  .component-widget{
-    width: 100%;
+  flex-direction: column;
+  .button-bar {
+    display: flex;
+    justify-content: end;
+  }
+  .bar-content {
+    display: flex;
+    flex-direction: row;
+    top: 60px;
+    top: #{$top_bar_sticky_top_position}px;
+    height: 100%;
+    position: sticky;
+    .component-widget{
+      width: 100%;
+    }
+
+  }
+  &.collapsed {
+    // height: 0;
+    overflow: hidden;
+    .component-widget {
+      display: none;
+    }
+    // .button-bar {
+    //   display: flex;
+    //   flex-direction: column;
+    // }
+  }
+  &.expanded {
+    height: 100%;
   }
 }
 
@@ -62,7 +85,32 @@ body.has-sidebar-page #main-outlet-wrapper {
   .component-widget{
     margin-bottom: #{$sidebar_between_component_gap}px;
   }
+  &.collapsed {
+    width: 0;
+    overflow: hidden;
+    .component-widget{
+      display: none;
+    }
+    .button-bar {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &.expanded {
+    .button-bar {
+      display: flex;
+      justify-content: end;
+    }
+  }
 }
+
+.button-bar {
+  button {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+}
+
 
 .big-a, .big-b, .big-c, .big-d, .big-e, .big-f, .big-g {
   font-weight: bold;

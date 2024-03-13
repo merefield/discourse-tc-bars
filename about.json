@@ -3,5 +3,8 @@
   "about_url": null,
   "license_url": null,
   "component": true,
+  "modifiers": {
+     "svg_icons": ["angle-up", "angle-down", "angle-left", "angle-right"]
+  },
   "authors": "merefield@gmail.com"
 }

@@ -53,3 +53,7 @@ rightalt_sidebar_gap:
   default: 5
 sidebar_between_component_gap:
   default: 20
+sidebars_collapsible:
+  default: true
+sidebars_dismisable:
+  default: true
