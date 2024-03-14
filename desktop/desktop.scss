@@ -6,6 +6,12 @@
   grid-template-areas:
     "sidebar leftsidebar content rightsidebar";
   grid-template-columns: 0 auto minmax(0, 1fr) auto;
+
+  &.has-sidebar {
+    .topic-body {
+      width: unset;
+    }
+  }
 }
 
 @media screen and (max-width: 8000px) {

@@ -98,4 +98,16 @@ export default class ComponentBarComponent extends Component {
       this.toggleState = "expanded";
     }
   }
+
+  @action
+  setupWrapper() {
+    if (this.barEnabled) {
+      switch (this.args.location) {
+        case 'right':
+          document.getElementById('main-outlet-wrapper').classList.add('has-sidebar');
+        case 'left':
+          document.getElementById('main-outlet-wrapper').classList.add('has-sidebar');
+      }
+    }
+  }
 }

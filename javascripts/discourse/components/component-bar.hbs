@@ -1,4 +1,5 @@
-<div class="{{this.currentBarClasses}} {{this.toggleState}} {{this.visability}}" style="{{this.currentBarWidth}}{{this.getSticky}}{{this.getScrolly}}">
+
+<div {{did-insert this.setupWrapper}} class="{{this.currentBarClasses}} {{this.toggleState}} {{this.visability}}" style="{{this.currentBarWidth}}{{this.getSticky}}{{this.getScrolly}}">
   <div class="button-bar">
     {{#if (theme-setting "sidebars_collapsible")}}
       <DButton class="toggler-button" @icon={{this.toggleIcon}} @action={{this.toggleTheState}}/>
