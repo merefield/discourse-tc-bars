@@ -69,15 +69,10 @@ body.has-sidebar-page #main-outlet-wrapper {
 
   }
   &.collapsed {
-    // height: 0;
     overflow: hidden;
     .component-widget {
       display: none;
     }
-    // .button-bar {
-    //   display: flex;
-    //   flex-direction: column;
-    // }
   }
   &.expanded {
     height: 100%;
@@ -117,7 +112,7 @@ body.has-sidebar-page #main-outlet-wrapper {
   }
 }
 
-.big-letter {
+.bars-big-letter {
   font-weight: bold;
   font-size: 50px;
   text-align: center;
