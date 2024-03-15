@@ -76,7 +76,16 @@ export default class ComponentBarComponent extends Component {
   }
 
   get inScopeComponents() {
-    return JSON.parse(settings.bar_components).filter(component => component.position === this.args.location && this.routeCondition(component.route));
+    let components = JSON.parse(settings.bar_components).filter(component => component.position === this.args.location && this.routeCondition(component.route));
+    components.forEach(component => {
+      component.parsedParams = {};
+      if (component.params) {
+        component.params.forEach((p) => {
+          component.parsedParams[p.name] = p.value;
+        });
+      }
+    });
+    return components;
   }
 
   get toggleIcon() {

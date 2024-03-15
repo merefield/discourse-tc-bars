@@ -11,7 +11,7 @@
   <div class="bar-content">
     {{#each this.inScopeComponents as |inScopeComponent|}}
         <div class="component-widget">
-          {{component inScopeComponent.component_name}}
+          {{component inScopeComponent.component_name params=inScopeComponent.parsedParams}}
         </div>
     {{/each}}
   </div>
