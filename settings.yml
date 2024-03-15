@@ -1,17 +1,17 @@
 bar_components:
   default: >-
-    [{"component_name":"big-a","route":"discovery","position":"left"},
-     {"component_name":"big-b","route":"discovery","position":"left"},
-     {"component_name":"big-c","route":"discovery","position":"right-alt"},
-     {"component_name":"big-d","route":"discovery","position":"right-alt"},
-     {"component_name":"big-e","route":"discovery","position":"top"},
-     {"component_name":"big-f","route":"discovery","position":"top"},
-     {"component_name":"big-c","route":"topic","position":"right"},
-     {"component_name":"big-d","route":"topic","position":"right"},
-     {"component_name":"big-e","route":"topic","position":"top"},
-     {"component_name":"big-a","route":"categories","position":"left"},
-     {"component_name":"big-c","route":"category","position":"left"},
-     {"component_name":"big-b","route":"tag","position":"right"}]
+    [{"component_name":"bars-custom-html","route":"discovery","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>A</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>B</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"right-alt", "params": [{"name":"content","value":"<div class='bars-big-letter'>C</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"right-alt", "params": [{"name":"content","value":"<div class='bars-big-letter'>D</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"top", "params": [{"name":"content","value":"<div class='bars-big-letter'>E</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"top", "params": [{"name":"content","value":"<div class='bars-big-letter'>F</div>"}]},
+     {"component_name":"bars-custom-html","route":"topic","position":"right", "params": [{"name":"content","value":"<div class='bars-big-letter'>G</div>"}]},
+     {"component_name":"bars-custom-html","route":"topic","position":"right", "params": [{"name":"content","value":"<div class='bars-big-letter'>H</div>"}]},
+     {"component_name":"bars-custom-html","route":"topic","position":"top", "params": [{"name":"content","value":"<div class='bars-big-letter'>I</div>"}]},
+     {"component_name":"bars-custom-html","route":"categories","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>K</div>"}]},
+     {"component_name":"bars-custom-html","route":"category","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>L</div>"}]},
+     {"component_name":"bars-custom-html","route":"tag","position":"right", "params": [{"name":"content","value":"<div class='bars-big-letter'>M</div>"}]}]
   json_schema: >-
     {
       "type": "array",
@@ -26,6 +26,22 @@ bar_components:
           },
           "position": {
             "type": "string"
+          },
+          "params": {
+            "type": "array",
+            "format": "table",
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }

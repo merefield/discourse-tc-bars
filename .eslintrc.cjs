@@ -1,1 +1,9 @@
-module.exports = require("@discourse/lint-configs/eslint");
+{
+  "extends": "eslint-config-discourse",
+  "ignorePatterns": ["javascripts/vendor/*"],
+  "globals": {
+    "settings": "readonly",
+    "themePrefix": "readonly"
+  }
+}
+
