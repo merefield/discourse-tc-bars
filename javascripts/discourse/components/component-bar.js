@@ -10,6 +10,16 @@ export default class ComponentBarComponent extends Component {
   @tracked toggleState = "expanded";
   @tracked visability = "show";
 
+  constructor() {
+    super(...arguments);
+    this.router.on('routeDidChange', this.setupWrapper);
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    this.router.off('routeDidChange', this.setupWrapper);
+  }
+
   get currentBarClasses() {
     switch (this.args.location) {
       case 'top':
