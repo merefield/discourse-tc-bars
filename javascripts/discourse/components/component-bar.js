@@ -13,7 +13,7 @@ export default class ComponentBarComponent extends Component {
   constructor() {
     super(...arguments);
     this.router.on('routeDidChange', this.setupWrapper);
-    if (settings.sidebars_minised_by_default.includes(this.args.location)) {
+    if (settings.sidebars_minimised_by_default.includes(this.args.location)) {
       this.toggleState = "collapsed";
     }
   }
