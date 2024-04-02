@@ -47,6 +47,11 @@ bar_components:
       }
     }
   description: "Specify Component, Route and Position.  Order determines layout. <br/><br/>Route must be either: discovery, topic, tag, category OR categories.  <br/><br/>Position must be either: top, left, right OR right-alt."
+sidebars_minised_by_default:
+  type: list
+  default: ""
+  description:
+    en: "The sidebars that are minimised by default.  Can be one of top|left|right|right-alt."
 left_sidebar_width:
   default: 300
 right_sidebar_width:
