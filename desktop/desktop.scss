@@ -5,6 +5,11 @@
   grid-column-gap: #{$sidebar_gap}px;
   grid-template-areas:
     "sidebar leftsidebar content rightsidebar";
+  &:has(.powered-by-discourse) {
+    grid-template-areas:
+      "sidebar leftsidebar content rightsidebar"
+      "sidebar leftsidebar below-content rightsidebar";
+  }
   grid-template-columns: 0 auto minmax(0, 1fr) auto;
 
   &.has-sidebar {
@@ -33,6 +38,11 @@
 body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas:
     "leftsidebar sidebar content rightsidebar";
+  &:has(.powered-by-discourse) {
+    grid-template-areas:
+      "leftsidebar sidebar content rightsidebar"
+      "leftsidebar sidebar below-content rightsidebar";
+  }
   grid-template-columns: auto var(--d-sidebar-width) minmax(0, 1fr) auto;
   grid-column-gap: #{$sidebar_gap}px;
 }
@@ -41,6 +51,11 @@ body.has-sidebar-page #main-outlet-wrapper {
   display: grid;
   grid-template-areas:
     "content rightaltsidebar";
+  &:has(.powered-by-discourse) {
+    grid-template-areas:
+      "content rightaltsidebar"
+      "below-content rightaltsidebar";
+  }
   grid-template-columns: minmax(0, 1fr) auto;
   grid-column-gap: #{$rightalt_sidebar_gap}px;
 }
