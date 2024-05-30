@@ -16,8 +16,11 @@ export default {
           if (!this.element || this.isDestroying || this.isDestroyed) {
             return;
           }
-      
-          let topicSidebar = JSON.parse(settings.bar_components).some(component => component.position === "right" && component.route === "topic");
+
+          let topicSidebar = JSON.parse(settings.bar_components).some(
+            (component) =>
+              component.position === "right" && component.route === "topic"
+          );
 
           this.info.set("renderTimeline", false);
 
@@ -30,14 +33,14 @@ export default {
               document.querySelector("#reply-control")?.offsetHeight || 0;
             const verticalSpace =
               window.innerHeight - composerHeight - headerOffset();
-      
+
             this.info.set(
               "renderTimeline",
               this.mediaQuery.matches && verticalSpace > MIN_HEIGHT_TIMELINE
             );
           }
-        }
+        },
       });
     });
-  }
-}
+  },
+};

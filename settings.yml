@@ -1,6 +1,14 @@
 bar_components:
   default: >-
-    [{"component_name":"bars-custom-html","route":"discovery","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>A</div>"}]},
+    [{"component_name":"bars-custom-html","route":"homepage","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>A</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>B</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"right", "params": [{"name":"content","value":"<div class='bars-big-letter'>C</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"right", "params": [{"name":"content","value":"<div class='bars-big-letter'>D</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"centre", "params": [{"name":"content","value":"<div class='bars-big-letter'>E</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"centre", "params": [{"name":"content","value":"<div class='bars-big-letter'>F</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"top", "params": [{"name":"content","value":"<div class='bars-big-letter'>G</div>"}]},
+     {"component_name":"bars-custom-html","route":"homepage","position":"top", "params": [{"name":"content","value":"<div class='bars-big-letter'>H</div>"}]},
+     {"component_name":"bars-custom-html","route":"discovery","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>A</div>"}]},
      {"component_name":"bars-custom-html","route":"discovery","position":"left", "params": [{"name":"content","value":"<div class='bars-big-letter'>B</div>"}]},
      {"component_name":"bars-custom-html","route":"discovery","position":"right-alt", "params": [{"name":"content","value":"<div class='bars-big-letter'>C</div>"}]},
      {"component_name":"bars-custom-html","route":"discovery","position":"right-alt", "params": [{"name":"content","value":"<div class='bars-big-letter'>D</div>"}]},

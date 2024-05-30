@@ -2,9 +2,10 @@
   "name": "Bars!",
   "about_url": "https://meta.discourse.org/t/discourse-bars-a-sidebar-framework/298216",
   "license_url": "https://github.com/merefield/discourse-tc-bars/blob/main/LICENSE",
-  "version": "0.1",
+  "version": "0.2",
   "component": true,
   "modifiers": {
+    "custom_homepage": "true",
      "svg_icons": ["angle-up", "angle-down", "angle-left", "angle-right"]
   },
   "authors": "merefield@gmail.com"
