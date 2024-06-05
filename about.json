@@ -5,7 +5,6 @@
   "version": "0.2",
   "component": true,
   "modifiers": {
-    "custom_homepage": "true",
      "svg_icons": ["angle-up", "angle-down", "angle-left", "angle-right"]
   },
   "authors": "merefield@gmail.com"
