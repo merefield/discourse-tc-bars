@@ -134,13 +134,29 @@ export default class ComponentBarComponent extends Component {
   }
 
   get toggleIcon() {
-    return this.toggleState === "expanded"
-      ? ["right", "right-alt", "left"].includes(this.args.location)
-        ? "angle-right"
-        : "angle-up"
-      : ["right", "right-alt", "left"].includes(this.args.location)
-      ? "angle-left"
-      : "angle-down";
+    switch (this.toggleState) {
+      case "expanded":
+        switch (this.args.location) {
+          case "right":
+          case "right-alt":
+            return "angle-right";
+          case "left":
+            return "angle-left";
+          default:
+            return "angle-up";
+        }
+
+      default:
+        switch (this.args.location) {
+          case "right":
+          case "right-alt":
+            return "angle-left";
+          case "left":
+            return "angle-right";
+          default:
+            return "angle-down";
+        }
+    }
   }
 
   get sidebarsCollapsible() {
