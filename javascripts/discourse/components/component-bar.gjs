@@ -136,10 +136,10 @@ export default class ComponentBarComponent extends Component {
   get toggleIcon() {
     return this.toggleState === "expanded"
       ? ["right", "right-alt", "left"].includes(this.args.location)
-        ? "angle-left"
+        ? "angle-right"
         : "angle-up"
       : ["right", "right-alt", "left"].includes(this.args.location)
-      ? "angle-right"
+      ? "angle-left"
       : "angle-down";
   }
 

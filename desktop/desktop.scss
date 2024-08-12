@@ -94,6 +94,13 @@ body.has-sidebar-page #main-outlet-wrapper {
   }
 }
 
+.button-bar {
+  button {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+}
+
 .left-sidebar, .right-sidebar, .right-alt-sidebar {
   top: #{$sidebar_sticky_top_position}px;
   height: #{$sidebar_height}px;
@@ -115,15 +122,11 @@ body.has-sidebar-page #main-outlet-wrapper {
   &.expanded {
     .button-bar {
       display: flex;
-      justify-content: end;
+      justify-content: space-between;
+      button {
+        margin-left: 0px;
+      }
     }
-  }
-}
-
-.button-bar {
-  button {
-    margin-left: 5px;
-    margin-bottom: 5px;
   }
 }
 
