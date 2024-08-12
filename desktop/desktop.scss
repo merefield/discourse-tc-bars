@@ -29,6 +29,7 @@
 
 .left-sidebar {
   grid-area: leftsidebar;
+  padding-top: 24px;
 }
 
 .right-sidebar {
@@ -126,6 +127,14 @@ body.has-sidebar-page #main-outlet-wrapper {
       button {
         margin-left: 0px;
       }
+    }
+  }
+}
+
+.left-sidebar {
+  &.expanded {
+    .button-bar {
+      flex-direction: row-reverse;
     }
   }
 }
