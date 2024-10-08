@@ -24,7 +24,7 @@ export default {
 
           this.info.set("renderTimeline", false);
 
-          if (this.info.topicProgressExpanded && !topicSidebar) {
+          if (this.info.topicProgressExpanded) {
             this.info.set("renderTimeline", true);
           } else if (this.site.mobileView) {
             this.info.set("renderTimeline", false);
