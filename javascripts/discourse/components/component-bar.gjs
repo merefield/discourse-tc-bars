@@ -217,7 +217,7 @@ export default class ComponentBarComponent extends Component {
         {{#if this.sidebarsDismisable}}
           <DButton
             class="close-button"
-            @icon="times"
+            @icon="xmark"
             @action={{this.dismiss}}
           />
         {{/if}}
