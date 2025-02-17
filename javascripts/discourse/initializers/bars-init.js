@@ -13,6 +13,7 @@ export default {
         pluginId: PLUGIN_ID,
 
         _performCheckSize() {
+          debugger;
           if (!this.element || this.isDestroying || this.isDestroyed) {
             return;
           }
@@ -39,6 +40,11 @@ export default {
               this.mediaQuery.matches && verticalSpace > MIN_HEIGHT_TIMELINE
             );
           }
+
+          this.info.set(
+            "withTopicProgress",
+            !this.info.renderTimeline && this.topic.posts_count > 1
+          );
         },
       });
     });
