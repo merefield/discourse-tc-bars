@@ -1,13 +1,13 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
 // import SwipeEvents from "discourse/lib/swipe-events";
 import { headerOffset } from "discourse/lib/offset-calculator";
+import { withPluginApi } from "discourse/lib/plugin-api";
 
 const PLUGIN_ID = "discourse-tc-bars";
 const MIN_HEIGHT_TIMELINE = 325;
 
 export default {
   name: "bars!",
-  initialize(container) {
+  initialize() {
     withPluginApi("0.8.40", (api) => {
       api.modifyClass("component:topic-navigation", {
         pluginId: PLUGIN_ID,

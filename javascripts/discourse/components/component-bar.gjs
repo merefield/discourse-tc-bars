@@ -1,9 +1,9 @@
 import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
-import { htmlSafe } from "@ember/template";
+import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
-import { tracked } from "@glimmer/tracking";
+import { service } from "@ember/service";
+import { htmlSafe } from "@ember/template";
 import DButton from "discourse/components/d-button";
 
 export default class ComponentBarComponent extends Component {
@@ -47,14 +47,16 @@ export default class ComponentBarComponent extends Component {
           return htmlSafe("");
         case "right":
           return htmlSafe(
-            `width: ${parseInt(settings.right_sidebar_width)}px;`
+            `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
           );
         case "right-alt":
           return htmlSafe(
-            `width: ${parseInt(settings.right_sidebar_width)}px;`
+            `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
           );
         case "left":
-          return htmlSafe(`width: ${parseInt(settings.left_sidebar_width)}px;`);
+          return htmlSafe(
+            `width: ${parseInt(settings.left_sidebar_width, 10)}px;`
+          );
         default:
           return htmlSafe("display: none;");
       }
@@ -191,6 +193,7 @@ export default class ComponentBarComponent extends Component {
           document
             .getElementById("main-outlet-wrapper")
             .classList.add("has-sidebar");
+          break;
         case "left":
           document
             .getElementById("main-outlet-wrapper")
@@ -198,6 +201,7 @@ export default class ComponentBarComponent extends Component {
       }
     }
   }
+
   <template>
     <div
       {{didInsert this.setupWrapper}}

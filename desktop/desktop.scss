@@ -3,8 +3,7 @@
   width: 100%;
   display: grid;
   grid-column-gap: #{$sidebar_gap}px;
-  grid-template-areas:
-    "sidebar leftsidebar content rightsidebar";
+  grid-template-areas: "sidebar leftsidebar content rightsidebar";
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "sidebar leftsidebar content rightsidebar"
@@ -37,8 +36,7 @@
 }
 
 body.has-sidebar-page #main-outlet-wrapper {
-  grid-template-areas:
-    "leftsidebar sidebar content rightsidebar";
+  grid-template-areas: "leftsidebar sidebar content rightsidebar";
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "leftsidebar sidebar content rightsidebar"
@@ -50,8 +48,7 @@ body.has-sidebar-page #main-outlet-wrapper {
 
 .full-width:not(.admin-interface *) {
   display: grid;
-  grid-template-areas:
-    "content rightaltsidebar";
+  grid-template-areas: "content rightaltsidebar";
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "content rightaltsidebar"
@@ -79,10 +76,9 @@ body.has-sidebar-page #main-outlet-wrapper {
     top: #{$top_bar_sticky_top_position}px;
     height: 100%;
     position: sticky;
-    .component-widget{
+    .component-widget {
       width: 100%;
     }
-
   }
   &.collapsed {
     overflow: hidden;
@@ -102,17 +98,19 @@ body.has-sidebar-page #main-outlet-wrapper {
   }
 }
 
-.left-sidebar, .right-sidebar, .right-alt-sidebar {
+.left-sidebar,
+.right-sidebar,
+.right-alt-sidebar {
   top: #{$sidebar_sticky_top_position}px;
   height: #{$sidebar_height}px;
   align-self: start;
-  .component-widget{
+  .component-widget {
     margin-bottom: #{$sidebar_between_component_gap}px;
   }
   &.collapsed {
     width: 0;
     overflow: hidden;
-    .component-widget{
+    .component-widget {
       display: none;
     }
     .button-bar {
