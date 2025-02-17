@@ -13,7 +13,6 @@ export default {
         pluginId: PLUGIN_ID,
 
         _performCheckSize() {
-          debugger;
           if (!this.element || this.isDestroying || this.isDestroyed) {
             return;
           }
