@@ -54,7 +54,9 @@ export default class ComponentBarComponent extends Component {
             `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
           );
         case "left":
-          return htmlSafe(`width: ${parseInt(settings.left_sidebar_width, 10)}px;`);
+          return htmlSafe(
+            `width: ${parseInt(settings.left_sidebar_width, 10)}px;`
+          );
         default:
           return htmlSafe("display: none;");
       }
