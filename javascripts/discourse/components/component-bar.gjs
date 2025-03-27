@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { action } from "@ember/object";
 import { concat } from "@ember/helper";
+import { action } from "@ember/object";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
@@ -10,6 +10,7 @@ import DButton from "discourse/components/d-button";
 export default class ComponentBarComponent extends Component {
   @service router;
   @service site;
+
   @tracked toggleState = "expanded";
   @tracked visability = "show";
 
@@ -209,7 +210,9 @@ export default class ComponentBarComponent extends Component {
       class="{{this.currentBarClasses}}
         {{this.toggleState}}
         {{this.visability}}"
-      style={{htmlSafe (concat this.currentBarWidth this.getSticky this.getScrolly)}}
+      style={{htmlSafe
+        (concat this.currentBarWidth this.getSticky this.getScrolly)
+      }}
     >
       <div class="button-bar">
         {{#if this.sidebarsCollapsible}}
