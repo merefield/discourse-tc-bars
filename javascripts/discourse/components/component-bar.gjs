@@ -208,7 +208,7 @@ export default class ComponentBarComponent extends Component {
       class="{{this.currentBarClasses}}
         {{this.toggleState}}
         {{this.visability}}"
-      style="{{this.currentBarWidth}}{{this.getSticky}}{{this.getScrolly}}"
+      style=={{html-safe (concat this.currentBarWidth this.getSticky this.getScrolly)}}
     >
       <div class="button-bar">
         {{#if this.sidebarsCollapsible}}
