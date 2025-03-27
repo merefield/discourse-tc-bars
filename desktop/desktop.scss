@@ -4,6 +4,7 @@
   display: grid;
   grid-column-gap: #{$sidebar_gap}px;
   grid-template-areas: "sidebar leftsidebar content rightsidebar";
+
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "sidebar leftsidebar content rightsidebar"
@@ -18,7 +19,7 @@
   }
 }
 
-@media screen and (max-width: 8000px) {
+@media screen and (width <= 8000px) {
   .container.posts :not(.with-timeline).topic-navigation {
     grid-area: posts;
     grid-row: 3;
@@ -29,6 +30,12 @@
 .left-sidebar {
   grid-area: leftsidebar;
   padding-top: 22px;
+
+  &.expanded {
+    .button-bar {
+      flex-direction: row-reverse;
+    }
+  }
 }
 
 .right-sidebar {
@@ -37,6 +44,7 @@
 
 body.has-sidebar-page #main-outlet-wrapper {
   grid-template-areas: "leftsidebar sidebar content rightsidebar";
+
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "leftsidebar sidebar content rightsidebar"
@@ -49,6 +57,7 @@ body.has-sidebar-page #main-outlet-wrapper {
 .full-width:not(.admin-interface *) {
   display: grid;
   grid-template-areas: "content rightaltsidebar";
+
   &:has(.powered-by-discourse) {
     grid-template-areas:
       "content rightaltsidebar"
@@ -65,10 +74,12 @@ body.has-sidebar-page #main-outlet-wrapper {
 .top-bar {
   display: flex;
   flex-direction: column;
+
   .button-bar {
     display: flex;
     justify-content: end;
   }
+
   .bar-content {
     display: flex;
     flex-direction: row;
@@ -76,16 +87,20 @@ body.has-sidebar-page #main-outlet-wrapper {
     top: #{$top_bar_sticky_top_position}px;
     height: 100%;
     position: sticky;
+
     .component-widget {
       width: 100%;
     }
   }
+
   &.collapsed {
     overflow: hidden;
+
     .component-widget {
       display: none;
     }
   }
+
   &.expanded {
     height: 100%;
   }
@@ -104,35 +119,33 @@ body.has-sidebar-page #main-outlet-wrapper {
   top: #{$sidebar_sticky_top_position}px;
   height: #{$sidebar_height}px;
   align-self: start;
+
   .component-widget {
     margin-bottom: #{$sidebar_between_component_gap}px;
   }
+
   &.collapsed {
     width: 0;
     overflow: hidden;
+
     .component-widget {
       display: none;
     }
+
     .button-bar {
       display: flex;
       flex-direction: column;
     }
   }
+
   &.expanded {
     .button-bar {
       display: flex;
       justify-content: space-between;
-      button {
-        margin-left: 0px;
-      }
-    }
-  }
-}
 
-.left-sidebar {
-  &.expanded {
-    .button-bar {
-      flex-direction: row-reverse;
+      button {
+        margin-left: 0;
+      }
     }
   }
 }
@@ -145,5 +158,5 @@ body.has-sidebar-page #main-outlet-wrapper {
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 20px;
-  box-shadow: 0px 3px 6px #00000029;
+  box-shadow: 0 3px 6px #00000029;
 }
