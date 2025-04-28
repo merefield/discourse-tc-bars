@@ -1,0 +1,36 @@
+<div
+  {{didInsert this.setupWrapper}}
+  class="{{this.currentBarClasses}}
+    {{this.toggleState}}
+    {{this.visability}}"
+  style={{htmlSafe
+    (concat this.currentBarWidth this.getSticky this.getScrolly)
+  }}
+>
+  <div class="button-bar">
+    {{#if this.sidebarsCollapsible}}
+      <DButton
+        class="toggler-button"
+        @icon={{this.toggleIcon}}
+        @action={{this.toggleTheState}}
+      />
+    {{/if}}
+    {{#if this.sidebarsDismisable}}
+      <DButton
+        class="close-button"
+        @icon="xmark"
+        @action={{this.dismiss}}
+      />
+    {{/if}}
+  </div>
+  <div class="bar-content">
+    {{#each this.inScopeComponents as |inScopeComponent|}}
+      <div class="component-widget">
+        {{component
+          inScopeComponent.component_name
+          params=inScopeComponent.parsedParams
+        }}
+      </div>
+    {{/each}}
+  </div>
+</div>
