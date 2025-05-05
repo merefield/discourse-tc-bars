@@ -1,11 +1,9 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { concat } from "@ember/helper";
 import { action } from "@ember/object";
-import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
-import DButton from "discourse/components/d-button";
+import { getOwner } from "@ember/application";
 
 export default class ComponentBarComponent extends Component {
   @service router;
@@ -121,11 +119,25 @@ export default class ComponentBarComponent extends Component {
   }
 
   get inScopeComponents() {
-    let components = JSON.parse(settings.bar_components).filter(
+    const barComponents = JSON.parse(settings.bar_components);
+    const owner = getOwner(this);
+
+    barComponents.forEach(({ component_name }) => {
+      if (!owner.hasRegistration(`component:${component_name}`)) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Bars! issue: component "${component_name}" is not registered despite being specified in Bars configuration. Please check your Plugin and Theme Component installations.`
+        );
+      }
+    });
+
+    const components = barComponents.filter(
       (component) =>
         component.position === this.args.location &&
-        this.routeCondition(component.route)
+        this.routeCondition(component.route) &&
+        owner.hasRegistration(`component:${component.component_name}`)
     );
+
     components.forEach((component) => {
       component.parsedParams = {};
       if (component.params) {
