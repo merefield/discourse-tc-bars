@@ -97,12 +97,14 @@ export default class ComponentBarComponent extends Component {
     let isSubRouteCategories = subRoute === "categories";
     let isSubRouteCategory = subRoute === "category";
     let isCustomHomePage = subRoute === "custom";
+    let isTagsIntersection = baseRoute === "tags" && subRoute === "intersection";
     let forbiddenSubRoutes = ["categories", "category", "custom"];
 
     let routeCondition =
       (isBaseRouteMatch && !forbiddenSubRoutes.includes(subRoute)) ||
       (componentRoute === "categories" && isSubRouteCategories) ||
       (componentRoute === "category" && isSubRouteCategory) ||
+      (componentRoute === "tags-intersection" && isTagsIntersection) ||
       (componentRoute === "homepage" && isCustomHomePage);
     return routeCondition;
   }
