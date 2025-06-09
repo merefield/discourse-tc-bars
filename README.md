@@ -2,7 +2,7 @@
 A Theme Component that allows you to lay out Components[^1] on top and side bars.
 
 * Specify a set of "widgets" distinctly for Route and Position.
-* Supports setups for each of: discovery[^1], topic, tag[^2], category[^2], categories[^2] OR tags-intersection[^4]
+* Supports setups for each of: discovery[^2], topic, tag[^3], category[^3], categories[^3] OR tags-intersection[^4]
 * "Bars" can be either: top, left, right OR alternative right location.
 * Each bar can be collapsed or dismissed (refresh browser to reset dismiss).  They can be minimised by default.
 * Handles the Official Sidebar, but if you intend you use a Bars Left Sidebar, the Dropdown mode of the official Sidebar is recommended.
