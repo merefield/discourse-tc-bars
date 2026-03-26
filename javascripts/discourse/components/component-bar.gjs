@@ -4,7 +4,7 @@ import { getOwner } from "@ember/application";
 import { action } from "@ember/object";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { service } from "@ember/service";
-import { htmlSafe } from "@ember/template";
+import { trustHTML } from "@ember/template";
 import DButton from "discourse/components/d-button";
 
 export default class ComponentBarComponent extends Component {
@@ -44,33 +44,33 @@ export default class ComponentBarComponent extends Component {
     if (this.barEnabled && this.toggleState === "expanded") {
       switch (this.args.location) {
         case "top":
-          return htmlSafe("width: 100%;");
+          return trustHTML("width: 100%;");
         case "centre":
-          return htmlSafe("");
+          return trustHTML("");
         case "right":
-          return htmlSafe(
+          return trustHTML(
             `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
           );
         case "right-alt":
-          return htmlSafe(
+          return trustHTML(
             `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
           );
         case "left":
-          return htmlSafe(
+          return trustHTML(
             `width: ${parseInt(settings.left_sidebar_width, 10)}px;`
           );
         default:
-          return htmlSafe("display: none;");
+          return trustHTML("display: none;");
       }
     } else if (this.barEnabled && this.toggleState === "collapsed") {
-      return htmlSafe("width: auto;");
+      return trustHTML("width: auto;");
     } else {
-      return htmlSafe("display: none;");
+      return trustHTML("display: none;");
     }
   }
 
   get currentBarStyle() {
-    return htmlSafe(
+    return trustHTML(
       `${this.currentBarWidth}${this.getSticky}${this.getScrolly}`
     );
   }
@@ -81,9 +81,9 @@ export default class ComponentBarComponent extends Component {
       settings.sticky_sidebars &&
       this.args.location !== "centre"
     ) {
-      return htmlSafe(" position: sticky; position: -webkit-sticky;");
+      return trustHTML(" position: sticky; position: -webkit-sticky;");
     } else {
-      return htmlSafe("");
+      return trustHTML("");
     }
   }
 
@@ -93,9 +93,9 @@ export default class ComponentBarComponent extends Component {
       settings.scrolly_sidebars &&
       this.args.location !== "centre"
     ) {
-      return htmlSafe("  overflow-y: scroll;");
+      return trustHTML("  overflow-y: scroll;");
     } else {
-      return htmlSafe("");
+      return trustHTML("");
     }
   }
 

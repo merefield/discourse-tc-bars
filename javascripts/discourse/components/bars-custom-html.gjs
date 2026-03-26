@@ -1,9 +1,9 @@
 import Component from "@glimmer/component";
-import { htmlSafe } from "@ember/template";
+import { trustHTML } from "@ember/template";
 
 export default class BarsCustomHtmlComponent extends Component {
   get safeHtmlContent() {
-    return htmlSafe(this.args.params.content);
+    return trustHTML(this.args.params.content);
   }
 
   <template>{{this.safeHtmlContent}}</template>
