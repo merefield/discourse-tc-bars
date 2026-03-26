@@ -2,7 +2,7 @@
   box-sizing: unset;
   width: 100%;
   display: grid;
-  grid-column-gap: #{$sidebar_gap}px;
+  column-gap: #{$sidebar_gap}px;
   grid-template-areas: "sidebar leftsidebar content rightsidebar";
 
   &:has(.powered-by-discourse) {
@@ -51,7 +51,7 @@ body.has-sidebar-page #main-outlet-wrapper {
       "leftsidebar sidebar below-content rightsidebar";
   }
   grid-template-columns: auto var(--d-sidebar-width) minmax(0, 1fr) auto;
-  grid-column-gap: #{$sidebar_gap}px;
+  column-gap: #{$sidebar_gap}px;
 }
 
 .full-width:not(.admin-interface *) {
@@ -64,7 +64,7 @@ body.has-sidebar-page #main-outlet-wrapper {
       "below-content rightaltsidebar";
   }
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-column-gap: #{$rightalt_sidebar_gap}px;
+  column-gap: #{$rightalt_sidebar_gap}px;
 }
 
 .right-alt-sidebar {
