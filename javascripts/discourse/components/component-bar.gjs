@@ -1,9 +1,11 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { getOwner } from "@ember/application";
 import { action } from "@ember/object";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
-import { getOwner } from "@ember/application";
+import DButton from "discourse/components/d-button";
 
 export default class ComponentBarComponent extends Component {
   @service router;
@@ -65,6 +67,12 @@ export default class ComponentBarComponent extends Component {
     } else {
       return htmlSafe("display: none;");
     }
+  }
+
+  get currentBarStyle() {
+    return htmlSafe(
+      `${this.currentBarWidth}${this.getSticky}${this.getScrolly}`
+    );
   }
 
   get getSticky() {
@@ -218,4 +226,41 @@ export default class ComponentBarComponent extends Component {
       }
     }
   }
+
+  <template>
+    <div
+      {{didInsert this.setupWrapper}}
+      class="{{this.currentBarClasses}}
+        {{this.toggleState}}
+        {{this.visability}}"
+      style={{this.currentBarStyle}}
+    >
+      <div class="button-bar">
+        {{#if this.sidebarsCollapsible}}
+          <DButton
+            class="toggler-button"
+            @icon={{this.toggleIcon}}
+            @action={{this.toggleTheState}}
+          />
+        {{/if}}
+        {{#if this.sidebarsDismisable}}
+          <DButton
+            class="close-button"
+            @icon="xmark"
+            @action={{this.dismiss}}
+          />
+        {{/if}}
+      </div>
+      <div class="bar-content">
+        {{#each this.inScopeComponents as |inScopeComponent|}}
+          <div class="component-widget">
+            {{component
+              inScopeComponent.component_name
+              params=inScopeComponent.parsedParams
+            }}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </template>
 }
