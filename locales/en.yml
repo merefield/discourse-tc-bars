@@ -1,0 +1,12 @@
+en:
+  tc_bars:
+    actions:
+      collapse: "Collapse bar"
+      dismiss: "Dismiss bar"
+      expand: "Expand bar"
+    labels:
+      centre: "Homepage bar"
+      left: "Left sidebar"
+      right: "Right sidebar"
+      right-alt: "Topic list sidebar"
+      top: "Top bar"
