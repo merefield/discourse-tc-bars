@@ -1,7 +1,7 @@
 import { click, render } from "@ember/test-helpers";
 import { module, test } from "qunit";
 import { setupRenderingTest } from "discourse/tests/helpers/component-test";
-import ComponentBar from "../../../javascripts/discourse/components/component-bar";
+import ComponentBar from "../../../discourse/components/component-bar";
 
 const TestWidget = <template>
   <span class="bars-test-widget">{{@params.content}}</span>

@@ -4,7 +4,7 @@ import {
   minimizedLocations,
   parseBarComponents,
   routeMatches,
-} from "../../../javascripts/discourse/lib/bars";
+} from "../../../discourse/lib/bars";
 
 function discovery(overrides = {}) {
   return {
