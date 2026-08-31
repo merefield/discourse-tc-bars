@@ -24,9 +24,12 @@ module("Integration | Component | ComponentBar", function (hooks) {
     settings.sidebars_minimised_by_default = "";
 
     this.owner.register("component:bars-test-widget", TestWidget);
-
-    const capabilities = this.owner.lookup("service:capabilities");
-    capabilities.viewport.lg = true;
+    this.owner.unregister("service:capabilities");
+    this.owner.register(
+      "service:capabilities",
+      { viewport: { lg: true } },
+      { instantiate: false }
+    );
 
     const router = this.owner.lookup("service:router");
     router.currentRouteName = "discovery.latest";
