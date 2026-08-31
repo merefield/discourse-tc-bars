@@ -90,7 +90,7 @@ module("Integration | Component | ComponentBar", function (hooks) {
 
     assert.dom(".bars-bar").doesNotExist("removes the dismissed bar");
     assert
-      .dom("body")
+      .dom(document.body)
       .doesNotHaveClass("has-bars-left", "removes the bar layout state");
   });
 });

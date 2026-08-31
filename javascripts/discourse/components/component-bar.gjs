@@ -44,13 +44,19 @@ export default class ComponentBarComponent extends Component {
   }
 
   get label() {
-    return i18n(`tc_bars.labels.${this.args.location}`);
+    return i18n(themePrefix(`tc_bars.labels.${this.args.location}`));
   }
 
   get toggleTitle() {
-    return this.isCollapsed
+    const key = this.isCollapsed
       ? "tc_bars.actions.expand"
       : "tc_bars.actions.collapse";
+
+    return themePrefix(key);
+  }
+
+  get dismissTitle() {
+    return themePrefix("tc_bars.actions.dismiss");
   }
 
   get toggleIcon() {
@@ -189,7 +195,7 @@ export default class ComponentBarComponent extends Component {
               <DButton
                 class="btn-transparent bars-bar__button --dismiss"
                 @icon="xmark"
-                @title="tc_bars.actions.dismiss"
+                @title={{this.dismissTitle}}
                 @action={{this.dismiss}}
               />
             {{/if}}
