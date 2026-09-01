@@ -138,6 +138,10 @@
       justify-self: end;
     }
   }
+
+  > .bars-bar__content[hidden] {
+    display: none;
+  }
 }
 
 .bars-big-letter {
