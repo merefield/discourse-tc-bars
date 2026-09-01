@@ -30,10 +30,12 @@ bar_components:
             "type": "string"
           },
           "route": {
-            "type": "string"
+            "type": "string",
+            "enum": ["homepage", "discovery", "topic", "tag", "tags-intersection", "category", "categories"]
           },
           "position": {
-            "type": "string"
+            "type": "string",
+            "enum": ["top", "left", "centre", "right", "right-alt"]
           },
           "params": {
             "type": "array",
@@ -54,34 +56,52 @@ bar_components:
         }
       }
     }
-  description: "Specify Component, Route and Position.  Order determines layout. <br/><br/>Route must be either: discovery, topic, tag, category OR categories.  <br/><br/>Position must be either: top, left, right OR right-alt."
+  description: "Specify component, route, and position. Order determines layout. <br/><br/>Route must be homepage, discovery, topic, tag, tags-intersection, category, or categories. <br/><br/>Position must be top, left, centre, right, or right-alt."
 sidebars_minimised_by_default:
   type: list
   default: ""
   description:
-    en: "The sidebars that are minimised by default.  Can be one of top|left|right|right-alt."
+    en: "Bars that are minimised by default. Choose from top, left, right, and right-alt."
 left_sidebar_width:
   default: 300
+  min: 100
+  max: 800
 right_sidebar_width:
   default: 300
+  min: 100
+  max: 800
 sticky_sidebars:
   default: true
 sidebar_sticky_top_position:
   default: 60
+  min: 0
+  max: 500
 sidebar_height:
   default: 800
+  min: 100
+  max: 3000
 scrolly_sidebars:
   default: false
 top_bar_height:
   default: 150
+  min: 50
+  max: 1000
 top_bar_sticky_top_position:
   default: 60
+  min: 0
+  max: 500
 sidebar_gap:
   default: 5
+  min: 0
+  max: 100
 rightalt_sidebar_gap:
   default: 5
+  min: 0
+  max: 100
 sidebar_between_component_gap:
   default: 20
+  min: 0
+  max: 200
 sidebars_collapsible:
   default: true
 sidebars_dismisable:

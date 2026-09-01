@@ -1,266 +1,229 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { getOwner } from "@ember/application";
 import { action } from "@ember/object";
-import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import { getOwner } from "@ember/owner";
 import { service } from "@ember/service";
-import { trustHTML } from "@ember/template";
-import DButton from "discourse/components/d-button";
+import curryComponent from "ember-curry-component";
+import bodyClass from "discourse/helpers/body-class";
+import { and, eq, not } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import dConcatClass from "discourse/ui-kit/helpers/d-concat-class";
+import { i18n } from "discourse-i18n";
+import {
+  minimizedLocations,
+  parseBarComponents,
+  routeMatches,
+} from "../lib/bars";
+
+const warnedMissingComponents = new Set();
 
 export default class ComponentBarComponent extends Component {
+  @service capabilities;
+  @service discovery;
   @service router;
-  @service site;
 
-  @tracked toggleState = "expanded";
-  @tracked visability = "show";
+  @tracked isCollapsed = false;
+  @tracked isDismissed = false;
 
   constructor() {
     super(...arguments);
-    this.router.on("routeDidChange", this.setupWrapper);
-    if (settings.sidebars_minimised_by_default.includes(this.args.location)) {
-      this.toggleState = "collapsed";
-    }
+    this.isCollapsed = minimizedLocations(
+      settings.sidebars_minimised_by_default
+    ).includes(this.args.location);
   }
 
-  willDestroy() {
-    super.willDestroy();
-    this.router.off("routeDidChange", this.setupWrapper);
+  get locationClass() {
+    return `--${this.args.location}`;
   }
 
-  get currentBarClasses() {
-    switch (this.args.location) {
-      case "top":
-        return "top-bar wrap";
-      case "centre":
-        return "centre wrap";
-      case "right-alt":
-        return "right-alt-sidebar";
-      default:
-        return `${this.args.location}-sidebar`;
-    }
+  get bodyClass() {
+    return `has-bars-${this.args.location}`;
   }
 
-  get currentBarWidth() {
-    if (this.barEnabled && this.toggleState === "expanded") {
-      switch (this.args.location) {
-        case "top":
-          return trustHTML("width: 100%;");
-        case "centre":
-          return trustHTML("");
-        case "right":
-          return trustHTML(
-            `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
-          );
-        case "right-alt":
-          return trustHTML(
-            `width: ${parseInt(settings.right_sidebar_width, 10)}px;`
-          );
-        case "left":
-          return trustHTML(
-            `width: ${parseInt(settings.left_sidebar_width, 10)}px;`
-          );
-        default:
-          return trustHTML("display: none;");
-      }
-    } else if (this.barEnabled && this.toggleState === "collapsed") {
-      return trustHTML("width: auto;");
-    } else {
-      return trustHTML("display: none;");
-    }
+  get contentId() {
+    return `bars-${this.args.location}-content`;
   }
 
-  get currentBarStyle() {
-    return trustHTML(
-      `${this.currentBarWidth}${this.getSticky}${this.getScrolly}`
-    );
+  get label() {
+    return i18n(themePrefix(`tc_bars.labels.${this.args.location}`));
   }
 
-  get getSticky() {
-    if (
-      this.barEnabled &&
-      settings.sticky_sidebars &&
-      this.args.location !== "centre"
-    ) {
-      return trustHTML(" position: sticky; position: -webkit-sticky;");
-    } else {
-      return trustHTML("");
-    }
+  get toggleTitle() {
+    const key = this.isCollapsed
+      ? "tc_bars.actions.expand"
+      : "tc_bars.actions.collapse";
+
+    return themePrefix(key);
   }
 
-  get getScrolly() {
-    if (
-      this.barEnabled &&
-      settings.scrolly_sidebars &&
-      this.args.location !== "centre"
-    ) {
-      return trustHTML("  overflow-y: scroll;");
-    } else {
-      return trustHTML("");
-    }
-  }
-
-  routeCondition(componentRoute) {
-    let [baseRoute, subRoute] = this.router.currentRouteName.split(".");
-    let isBaseRouteMatch = componentRoute === baseRoute;
-    let isSubRouteCategories = subRoute === "categories";
-    let isSubRouteCategory = subRoute === "category";
-    let isCustomHomePage = subRoute === "custom";
-    let isTagsIntersection =
-      baseRoute === "tags" && subRoute === "intersection";
-    let forbiddenSubRoutes = ["categories", "category", "custom"];
-
-    let routeCondition =
-      (isBaseRouteMatch && !forbiddenSubRoutes.includes(subRoute)) ||
-      (componentRoute === "categories" && isSubRouteCategories) ||
-      (componentRoute === "category" && isSubRouteCategory) ||
-      (componentRoute === "tags-intersection" && isTagsIntersection) ||
-      (componentRoute === "homepage" && isCustomHomePage);
-    return routeCondition;
-  }
-
-  get barEnabled() {
-    return (
-      !this.site.mobileView &&
-      JSON.parse(settings.bar_components).some(
-        (component) =>
-          component.position === this.args.location &&
-          this.routeCondition(component.route)
-      )
-    );
-  }
-
-  get inScopeComponents() {
-    const barComponents = JSON.parse(settings.bar_components);
-    const owner = getOwner(this);
-
-    barComponents.forEach(({ component_name }) => {
-      if (!owner.hasRegistration(`component:${component_name}`)) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Bars! issue: component "${component_name}" is not registered despite being specified in Bars configuration. Please check your Plugin and Theme Component installations.`
-        );
-      }
-    });
-
-    const components = barComponents.filter(
-      (component) =>
-        component.position === this.args.location &&
-        this.routeCondition(component.route) &&
-        owner.hasRegistration(`component:${component.component_name}`)
-    );
-
-    components.forEach((component) => {
-      component.parsedParams = {};
-      if (component.params) {
-        component.params.forEach((p) => {
-          component.parsedParams[p.name] = p.value;
-        });
-      }
-    });
-    return components;
+  get dismissTitle() {
+    return themePrefix("tc_bars.actions.dismiss");
   }
 
   get toggleIcon() {
-    switch (this.toggleState) {
-      case "expanded":
-        switch (this.args.location) {
-          case "right":
-          case "right-alt":
-            return "angle-right";
-          case "left":
-            return "angle-left";
-          default:
-            return "angle-up";
-        }
-
-      default:
-        switch (this.args.location) {
-          case "right":
-          case "right-alt":
-            return "angle-left";
-          case "left":
-            return "angle-right";
-          default:
-            return "angle-down";
-        }
+    if (this.isCollapsed) {
+      switch (this.args.location) {
+        case "right":
+        case "right-alt":
+          return "angle-left";
+        case "left":
+          return "angle-right";
+        default:
+          return "angle-down";
+      }
     }
+
+    switch (this.args.location) {
+      case "right":
+      case "right-alt":
+        return "angle-right";
+      case "left":
+        return "angle-left";
+      default:
+        return "angle-up";
+    }
+  }
+
+  get isSticky() {
+    return settings.sticky_sidebars && this.args.location !== "centre";
+  }
+
+  get isScrollable() {
+    return settings.scrolly_sidebars && this.args.location !== "centre";
   }
 
   get sidebarsCollapsible() {
     return settings.sidebars_collapsible && this.args.location !== "centre";
   }
 
-  get sidebarsDismisable() {
+  get sidebarsDismissible() {
     return settings.sidebars_dismisable && this.args.location !== "centre";
+  }
+
+  get showControls() {
+    return this.sidebarsCollapsible || this.sidebarsDismissible;
+  }
+
+  get inScopeComponents() {
+    const owner = getOwner(this);
+
+    return parseBarComponents(settings.bar_components)
+      .filter(
+        (component) =>
+          component.position === this.args.location &&
+          routeMatches(component.route, {
+            discovery: this.discovery,
+            routeName: this.router.currentRouteName,
+          })
+      )
+      .map((component, index) => {
+        const componentClass = owner.resolveRegistration(
+          `component:${component.component_name}`
+        );
+
+        if (!componentClass) {
+          this.warnMissingComponent(component.component_name);
+          return null;
+        }
+
+        const params = Object.fromEntries(
+          (component.params || []).map(({ name, value }) => [name, value])
+        );
+
+        // Preserve the legacy @params contract alongside named arguments.
+        return {
+          args: { ...params, params },
+          component: componentClass,
+          id: `${component.component_name}-${index}`,
+        };
+      })
+      .filter(Boolean);
+  }
+
+  get barEnabled() {
+    return this.capabilities.viewport.lg && this.inScopeComponents.length > 0;
+  }
+
+  warnMissingComponent(componentName) {
+    if (warnedMissingComponents.has(componentName)) {
+      return;
+    }
+
+    warnedMissingComponents.add(componentName);
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Bars! issue: component "${componentName}" is not registered despite being specified in Bars configuration. Please check your plugin and theme component installations.`
+    );
   }
 
   @action
   dismiss() {
-    if (this.visability === "show") {
-      this.visability = "hide";
-    }
+    this.isDismissed = true;
   }
 
   @action
-  toggleTheState() {
-    if (this.toggleState === "expanded") {
-      this.toggleState = "collapsed";
-    } else {
-      this.toggleState = "expanded";
-    }
-  }
-
-  @action
-  setupWrapper() {
-    if (this.barEnabled) {
-      switch (this.args.location) {
-        case "right":
-          document
-            .getElementById("main-outlet-wrapper")
-            .classList.add("has-sidebar");
-          break;
-        case "left":
-          document
-            .getElementById("main-outlet-wrapper")
-            .classList.add("has-sidebar");
-      }
-    }
+  toggle() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   <template>
-    <div
-      {{didInsert this.setupWrapper}}
-      class="{{this.currentBarClasses}}
-        {{this.toggleState}}
-        {{this.visability}}"
-      style={{this.currentBarStyle}}
-    >
-      <div class="button-bar">
-        {{#if this.sidebarsCollapsible}}
-          <DButton
-            class="toggler-button"
-            @icon={{this.toggleIcon}}
-            @action={{this.toggleTheState}}
-          />
-        {{/if}}
-        {{#if this.sidebarsDismisable}}
-          <DButton
-            class="close-button"
-            @icon="xmark"
-            @action={{this.dismiss}}
-          />
-        {{/if}}
-      </div>
-      <div class="bar-content">
-        {{#each this.inScopeComponents as |inScopeComponent|}}
-          <div class="component-widget">
-            {{component
-              inScopeComponent.component_name
-              params=inScopeComponent.parsedParams
-            }}
+    {{#if (and this.barEnabled (not this.isDismissed))}}
+      {{bodyClass this.bodyClass}}
+      <aside
+        class={{dConcatClass
+          "bars-bar"
+          this.locationClass
+          (if this.isCollapsed "is-collapsed")
+          (if this.isSticky "--sticky")
+          (if this.isScrollable "--scrollable")
+          (if (eq @location "top") "wrap")
+          (if (eq @location "centre") "wrap")
+        }}
+        data-position={{@location}}
+        aria-label={{this.label}}
+        ...attributes
+      >
+        {{#if this.showControls}}
+          <div class="bars-bar__actions">
+            {{#if this.sidebarsCollapsible}}
+              <DButton
+                class="btn-transparent bars-bar__button --toggle"
+                @icon={{this.toggleIcon}}
+                @title={{this.toggleTitle}}
+                @ariaExpanded={{not this.isCollapsed}}
+                @ariaControls={{this.contentId}}
+                @action={{this.toggle}}
+              />
+            {{/if}}
+            {{#if this.sidebarsDismissible}}
+              <DButton
+                class="btn-transparent bars-bar__button --dismiss"
+                @icon="xmark"
+                @title={{this.dismissTitle}}
+                @action={{this.dismiss}}
+              />
+            {{/if}}
           </div>
-        {{/each}}
-      </div>
-    </div>
+        {{/if}}
+        <div
+          id={{this.contentId}}
+          class="bars-bar__content"
+          hidden={{this.isCollapsed}}
+        >
+          {{#each this.inScopeComponents key="id" as |inScopeComponent|}}
+            <div class="bars-bar__widget component-widget">
+              {{#let
+                (curryComponent
+                  inScopeComponent.component inScopeComponent.args
+                )
+                as |BarComponent|
+              }}
+                <BarComponent />
+              {{/let}}
+            </div>
+          {{/each}}
+        </div>
+      </aside>
+    {{/if}}
   </template>
 }

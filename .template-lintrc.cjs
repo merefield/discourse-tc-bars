@@ -1,1 +1,3 @@
-module.exports = require("@discourse/lint-configs/template-lint");
+module.exports = {
+  extends: "recommended",
+};
