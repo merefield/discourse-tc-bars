@@ -110,8 +110,11 @@ module("Integration | Component | ComponentBar", function (hooks) {
 
     await render(
       <template>
-        <div id="main-outlet-wrapper" style="width: 1000px;">
-          <main id="main-outlet"></main>
+        <div
+          id="main-outlet-wrapper"
+          style="display: grid; width: 1000px; grid-template-areas: 'content bars-right'; grid-template-columns: minmax(0, 1fr) auto;"
+        >
+          <main id="main-outlet" style="grid-area: content;"></main>
           <ComponentBar @location="right" />
         </div>
       </template>
@@ -151,8 +154,11 @@ module("Integration | Component | ComponentBar", function (hooks) {
     await render(
       <template>
         <div class="list-container">
-          <div class="row full-width" style="width: 1000px;">
-            <div id="list-area"></div>
+          <div
+            class="row full-width"
+            style="display: grid; width: 1000px; grid-template-areas: 'content bars-right-alt'; grid-template-columns: minmax(0, 1fr) auto;"
+          >
+            <div id="list-area" style="grid-area: content;"></div>
             <ComponentBar @location="right-alt" />
           </div>
         </div>
@@ -192,9 +198,12 @@ module("Integration | Component | ComponentBar", function (hooks) {
 
     await render(
       <template>
-        <div id="main-outlet-wrapper" style="width: 1000px;">
+        <div
+          id="main-outlet-wrapper"
+          style="display: grid; width: 1000px; grid-template-areas: 'bars-left content'; grid-template-columns: auto minmax(0, 1fr);"
+        >
           <ComponentBar @location="left" />
-          <main id="main-outlet"></main>
+          <main id="main-outlet" style="grid-area: content;"></main>
         </div>
       </template>
     );
