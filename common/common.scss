@@ -106,7 +106,8 @@
     }
 
     &.is-collapsed {
-      width: auto;
+      inline-size: max-content;
+      justify-self: start;
 
       .bars-bar__actions {
         flex-direction: column;
@@ -123,11 +124,19 @@
   &[data-position="right"] {
     grid-area: bars-right;
     width: #{$right_sidebar_width}px;
+
+    &.is-collapsed {
+      justify-self: end;
+    }
   }
 
   &[data-position="right-alt"] {
     grid-area: bars-right-alt;
     width: #{$right_sidebar_width}px;
+
+    &.is-collapsed {
+      justify-self: end;
+    }
   }
 }
 
