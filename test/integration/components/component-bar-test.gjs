@@ -4,7 +4,10 @@ import { setupRenderingTest } from "discourse/tests/helpers/component-test";
 import ComponentBar from "../../../discourse/components/component-bar";
 
 const TestWidget = <template>
-  <span class="bars-test-widget">{{@params.content}}</span>
+  <span class="bars-test-widget">
+    <span class="bars-test-widget__modern">{{@content}}</span>
+    <span class="bars-test-widget__legacy">{{@params.content}}</span>
+  </span>
 </template>;
 
 module("Integration | Component | ComponentBar", function (hooks) {
@@ -48,9 +51,6 @@ module("Integration | Component | ComponentBar", function (hooks) {
       .dom('.bars-bar[data-position="left"]')
       .hasAttribute("aria-label", "Left sidebar", "labels the bar landmark");
     assert
-      .dom(".bars-test-widget")
-      .hasText("Widget content", "passes configured parameters to the widget");
-    assert
       .dom(".bars-bar__button.--toggle")
       .hasAttribute("title", "Collapse bar", "labels the collapse action")
       .hasAttribute("aria-expanded", "true", "exposes the expanded state")
@@ -62,6 +62,17 @@ module("Integration | Component | ComponentBar", function (hooks) {
     assert
       .dom(".bars-bar__button.--dismiss")
       .hasAttribute("title", "Dismiss bar", "labels the dismiss action");
+  });
+
+  test("passes configured parameters as modern and legacy arguments", async function (assert) {
+    await render(<template><ComponentBar @location="left" /></template>);
+
+    assert
+      .dom(".bars-test-widget__modern")
+      .hasText("Widget content", "passes the parameter as a named argument");
+    assert
+      .dom(".bars-test-widget__legacy")
+      .hasText("Widget content", "preserves the legacy params argument");
   });
 
   test("collapses and expands the bar content", async function (assert) {

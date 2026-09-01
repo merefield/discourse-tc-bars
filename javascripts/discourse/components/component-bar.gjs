@@ -3,10 +3,11 @@ import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { getOwner } from "@ember/owner";
 import { service } from "@ember/service";
+import curryComponent from "ember-curry-component";
 import bodyClass from "discourse/helpers/body-class";
+import { and, eq, not } from "discourse/truth-helpers";
 import DButton from "discourse/ui-kit/d-button";
 import dConcatClass from "discourse/ui-kit/helpers/d-concat-class";
-import { and, eq, not } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 import {
   minimizedLocations,
@@ -125,12 +126,15 @@ export default class ComponentBarComponent extends Component {
           return null;
         }
 
+        const params = Object.fromEntries(
+          (component.params || []).map(({ name, value }) => [name, value])
+        );
+
+        // Preserve the legacy @params contract alongside named arguments.
         return {
+          args: { ...params, params },
           component: componentClass,
           id: `${component.component_name}-${index}`,
-          params: Object.fromEntries(
-            (component.params || []).map(({ name, value }) => [name, value])
-          ),
         };
       })
       .filter(Boolean);
@@ -208,7 +212,14 @@ export default class ComponentBarComponent extends Component {
         >
           {{#each this.inScopeComponents key="id" as |inScopeComponent|}}
             <div class="bars-bar__widget component-widget">
-              <inScopeComponent.component @params={{inScopeComponent.params}} />
+              {{#let
+                (curryComponent
+                  inScopeComponent.component inScopeComponent.args
+                )
+                as |BarComponent|
+              }}
+                <BarComponent />
+              {{/let}}
             </div>
           {{/each}}
         </div>
